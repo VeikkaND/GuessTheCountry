@@ -1,7 +1,68 @@
 body {
     background-color: #212121;
+    margin: auto;
 }
 
 div {
     color: white;
+}
+
+.navbar {
+    display: block;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium';
+    font-size: 25px;
+    border-bottom: solid 1px;
+    border-color: black;
+    background-color: #313131;
+    margin-left: 0vw;
+    margin-bottom: 50px;
+    padding: 3%;
+}
+
+input {
+    width: 60%;
+    padding: 5px;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-style: none;
+    outline: none;
+}
+
+.game {
+    display: block;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Franklin Gothic';
+}
+
+.clue {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+}
+
+button {
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: olivedrab;
+    color: white;
+    border: 2px solid;
+    border-color: black;
+    font-weight: bold;
+    transition-duration: 0.2s;
+}
+
+button:hover {
+    background-color: darkolivegreen;
+    color: gainsboro;
+    padding: 22px 44px;
+}
+
+#country {
+    color: olivedrab;
 }

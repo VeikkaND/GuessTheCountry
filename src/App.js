@@ -1,6 +1,7 @@
 import Game from "./components/Game";
 import { getAllCountries } from "./services/countries"
 import { useEffect, useState } from "react";
+import NavBar from "./components/NavBar";
 
 function App () {
   const [getCountries, setCountries] = useState([])
@@ -17,12 +18,14 @@ function App () {
     const country = getCountries[Math.floor(Math.random() * getCountries.length)]
     return (
       <div>
+        <NavBar />
         <Game country={country}/>
       </div>
     )
   }
   return (
     <div>
+      <NavBar />
       Loading country data...
     </div>
   )

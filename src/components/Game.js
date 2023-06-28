@@ -61,7 +61,7 @@ const Game = ({country}) => {
     }
 
     const RestartButton = () => {
-        return (<button onClick={handleRestart}>Play again</button>)
+        return (<button onClick={handleRestart}>PLAY AGAIN</button>)
     }
 
     if(!gameOver) {
@@ -96,7 +96,7 @@ const Game = ({country}) => {
     if(gameOver) {
         if(guesses < 4) {
             return (
-                <div>
+                <div className="game">
                     <GameOverInfo />
                     <h3>Correct answer</h3>
                     <h4>The country was {country.name.common}</h4>
@@ -105,7 +105,7 @@ const Game = ({country}) => {
             )
         }
         return (
-            <div>
+            <div className="game">
                 <GameOverInfo />
                 <h3>Game Over</h3>
                 <h4>The correct country was {country.name.common}</h4>
@@ -114,7 +114,7 @@ const Game = ({country}) => {
         )
     }
     return (
-        <div>
+        <div className="game">
             <InputForm />
             <div className="clues">
                 <InfoBox infoType={"Population"} 
