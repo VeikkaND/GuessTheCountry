@@ -5,11 +5,13 @@ import NavBar from "./components/NavBar";
 
 function App () {
   const [getCountries, setCountries] = useState([])
+  const [countriesNames, setCountriesNames] = useState([])
 
   useEffect(() => {
     async function getCountries() {
       const countries = await getAllCountries()
       setCountries(countries)
+      setCountriesNames(countries.map(country => country.name.common))
     }
     getCountries()
   }, [])
@@ -19,7 +21,7 @@ function App () {
     return (
       <div>
         <NavBar />
-        <Game country={country}/>
+        <Game country={country} countries={countriesNames}/>
       </div>
     )
   }

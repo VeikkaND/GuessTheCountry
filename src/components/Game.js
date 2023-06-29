@@ -1,16 +1,18 @@
 import { useState } from "react"
 import InfoBox from "./InfoBox"
 
-const Game = ({country}) => {
+const Game = ({country, countries}) => {
     console.log(country.name.common)
     const [getGuesses, setGuesses] = useState(0)
     const [gameOver, setGameOver] = useState(false)
     const [guess, setGuess] = useState("")
+    const [matchingCountries, setMatchingCountries] = useState([])
 
     const guesses = getGuesses
     const correctAnswer = country.name.common.toLowerCase()
 
     const populationStyle = {display: "none"}
+    const locationStyle = {display: "none"}
     const areaStyle = {display: "none"}
     const capitalStyle = {display: "none"}
     const flagStyle = {display: "none"}
@@ -31,10 +33,39 @@ const Game = ({country}) => {
 
     const handleChange = (event) => {
         event.preventDefault()
-        if(!gameOver) setGuess(event.target.value)
+        if(!gameOver) {
+            setGuess(event.target.value)
+            setMatchingCountries(countries
+                .filter(country => country.toLowerCase()
+                    .includes(event.target.value.toLowerCase())))
+        }
+    }
+
+    const handleSelect = (event) => {
+        const country = event.target.innerText
+        setGuess(country)
+        setMatchingCountries(countries
+            .filter(c => c.toLowerCase()
+                .includes(country.toLowerCase())))
     }
 
     const InputForm = () => {
+        if(guess !== "" && guess !== matchingCountries[0]) {
+            return (
+                <form onSubmit={handleSubmit}>
+                    <input autoFocus onChange={handleChange} 
+                        value={guess}>
+                    </input>
+                    <div className="suggestions">
+                        {matchingCountries.map(country => 
+                            <p key={country} id="suggestion" 
+                                onClick={handleSelect}>
+                                    {country}
+                            </p>)}
+                    </div>
+                </form>
+            )
+        }
         return (
             <form onSubmit={handleSubmit}>
                 <input autoFocus onChange={handleChange} value={guess}></input>
@@ -45,10 +76,11 @@ const Game = ({country}) => {
     const GameOverInfo = () => {
         return (
             <div>
-                <InputForm />
                 <div className="clues">
                     <InfoBox infoType={"Population"} 
                         info={country.population}/>
+                    <InfoBox infoType={"Location"}
+                        info={country.continents}/>
                     <InfoBox infoType={"Area"} 
                         info={country.area}/>
                     <InfoBox infoType={"Capital"} 
@@ -56,6 +88,7 @@ const Game = ({country}) => {
                     <InfoBox infoType={"flag"} 
                         info={country.flags.png}/>
                 </div>
+                <InputForm />
             </div>
         )
     }
@@ -71,15 +104,22 @@ const Game = ({country}) => {
                 break;
             case 1:
                 populationStyle.display = "block";
-                areaStyle.display = "block"
+                locationStyle.display = "block";
                 break;
             case 2:
                 populationStyle.display = "block";
+                locationStyle.display = "block";
                 areaStyle.display = "block";
-                capitalStyle.display = "block";
                 break;
             case 3:
                 populationStyle.display = "block";
+                locationStyle.display = "block";
+                areaStyle.display = "block";
+                capitalStyle.display = "block";
+                break;
+            case 4:
+                populationStyle.display = "block";
+                locationStyle.display = "block";
                 areaStyle.display = "block";
                 capitalStyle.display = "block";
                 flagStyle.display = "block"
@@ -87,6 +127,7 @@ const Game = ({country}) => {
             default:
                 setGameOver(true)
                 populationStyle.display = "block";
+                locationStyle.display = "block";
                 areaStyle.display = "block";
                 capitalStyle.display = "block";
                 flagStyle.display = "block"
@@ -94,7 +135,7 @@ const Game = ({country}) => {
     }
     
     if(gameOver) {
-        if(guesses < 4) {
+        if(guesses < 5) {
             return (
                 <div className="game">
                     <GameOverInfo />
@@ -115,10 +156,12 @@ const Game = ({country}) => {
     }
     return (
         <div className="game">
-            <InputForm />
+            
             <div className="clues">
                 <InfoBox infoType={"Population"} 
                     info={country.population} style={populationStyle}/>
+                <InfoBox infoType={"Location"}
+                    info={country.continents} style={locationStyle}/>
                 <InfoBox infoType={"Area"} 
                     info={country.area} style={areaStyle}/>
                 <InfoBox infoType={"Capital"} 
@@ -126,6 +169,7 @@ const Game = ({country}) => {
                 <InfoBox infoType={"flag"} 
                     info={country.flags.png} style={flagStyle}/>
             </div>
+            <InputForm />
         </div>
     )
 }

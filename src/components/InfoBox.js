@@ -9,19 +9,26 @@ const InfoBox = ({infoType, info, style}) => {
     } else if (infoType === "Population") {
         return (
             <div style={style} className="clue">
-                {infoType}: {new Intl.NumberFormat().format(info)}
+                <span>{infoType}: </span>
+                <span id="info">
+                    {new Intl.NumberFormat().format(info)}
+                </span>
             </div>
         )
     } else if (infoType === "Area") {
         return (
             <div style={style} className="clue">
-                {infoType}: {new Intl.NumberFormat().format(info)} sq. km
+                <span>{infoType}: </span>
+                <span id="info">
+                    {new Intl.NumberFormat().format(info)} 
+                </span> 
+                <span id="unit"> km&sup2; </span>
             </div>
         )
     }
     return (
         <div style={style} className="clue">
-            {infoType}: {info}
+            <span>{infoType}: </span><span id="info">{info}</span>
         </div>
     )
 }

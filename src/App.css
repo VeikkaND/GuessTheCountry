@@ -16,7 +16,7 @@ div {
     border-color: black;
     background-color: #313131;
     margin-left: 0vw;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     padding: 3%;
 }
 
@@ -25,7 +25,7 @@ input {
     padding: 5px;
     font-size: 25px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1px;
     border-radius: 10px;
     border-style: none;
     outline: none;
@@ -40,10 +40,41 @@ input {
     font-family: 'Franklin Gothic';
 }
 
+@keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .clue {
     padding-top: 5px;
     padding-bottom: 5px;
     font-size: 20px;
+    animation-name: fadein;
+    animation-duration: 1.5s;
+}
+
+.clues {
+    padding-bottom: 50px;
+}
+
+.suggestions {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    width: 60%;
+    margin: auto;
+    max-height: 140px;
+    overflow: auto;
+}
+
+#suggestion {
+    padding: 5px 5px;
+    margin: 0;
+}
+
+#suggestion:hover {
+    background-color: gainsboro;
+    border-radius: 10px;
 }
 
 button {
@@ -66,3 +97,12 @@ button:hover {
 #country {
     color: olivedrab;
 }
+
+#info {
+    color: olivedrab;
+}
+
+#unit {
+    color: lightsalmon;
+}
+
