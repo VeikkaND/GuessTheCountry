@@ -44,11 +44,18 @@ const InputForm = ({ countries, country }) => {
                 .includes(country.toLowerCase())))
     }
 
+    const handleTab = (event) => {
+        if(event.key === "Tab") {
+            event.preventDefault()
+            setGuess(matchingCountries[0])
+        }
+    }
+
     if(guess !== "" && guess !== matchingCountries[0]) {
         return (
             <form onSubmit={handleSubmit}>
                 <input autoFocus onChange={handleChange} 
-                    value={guess}>
+                    value={guess} onKeyDown={handleTab}>
                 </input>
                 <div className="suggestions">
                     {matchingCountries.map(country => 
