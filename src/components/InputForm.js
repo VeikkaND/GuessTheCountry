@@ -7,6 +7,7 @@ const InputForm = ({ countries, country }) => {
     const [guess, setGuess] = useState("")
     const [matchingCountries, setMatchingCountries] = useState([])
     const gameOver = useSelector((state) => state.gameOver)
+    const guesses = useSelector((state) => state.guesses)
     const dispatch = useDispatch()
     
     const correctAnswer = country.name.common.toLowerCase()
@@ -14,6 +15,10 @@ const InputForm = ({ countries, country }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if(guess.toLowerCase() === correctAnswer) {
+            dispatch(setGameOver())
+        } else if (guesses >= 4) {
+            dispatch(incrementGuesses())
+            setGuess("")
             dispatch(setGameOver())
         } else {
             dispatch(incrementGuesses())

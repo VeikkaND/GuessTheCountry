@@ -1,14 +1,11 @@
 import InfoBox from "./InfoBox"
 import InputForm from "./InputForm"
-import { useSelector, useDispatch } from "react-redux"
-import { setGameOver } from "../reducers/gameOverReducer"
-import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 const Game = ({country, countries}) => {
     console.log(country.name.common)
     const gameOver = useSelector((state) => state.gameOver)
     const guesses = useSelector((state) => state.guesses)
-    const dispatch = useDispatch()
 
     const populationStyle = {display: "none"}
     const locationStyle = {display: "none"}
@@ -72,7 +69,6 @@ const Game = ({country, countries}) => {
                 flagStyle.display = "block"
                 break;
             default:
-                dispatch(setGameOver())
                 populationStyle.display = "block";
                 locationStyle.display = "block";
                 areaStyle.display = "block";
