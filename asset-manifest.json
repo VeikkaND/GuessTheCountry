@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/GuessTheCountry/static/css/main.a466d30f.css",
+    "main.js": "/GuessTheCountry/static/js/main.70afafe1.js",
+    "index.html": "/GuessTheCountry/index.html",
+    "main.a466d30f.css.map": "/GuessTheCountry/static/css/main.a466d30f.css.map",
+    "main.70afafe1.js.map": "/GuessTheCountry/static/js/main.70afafe1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a466d30f.css",
+    "static/js/main.70afafe1.js"
+  ]
+}
