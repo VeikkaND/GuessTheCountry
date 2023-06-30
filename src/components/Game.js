@@ -1,76 +1,23 @@
-import { useState } from "react"
 import InfoBox from "./InfoBox"
+import InputForm from "./InputForm"
+import { useSelector, useDispatch } from "react-redux"
+import { setGameOver } from "../reducers/gameOverReducer"
+import { useEffect } from "react"
 
 const Game = ({country, countries}) => {
     console.log(country.name.common)
-    const [getGuesses, setGuesses] = useState(0)
-    const [gameOver, setGameOver] = useState(false)
-    const [guess, setGuess] = useState("")
-    const [matchingCountries, setMatchingCountries] = useState([])
-
-    const guesses = getGuesses
-    const correctAnswer = country.name.common.toLowerCase()
+    const gameOver = useSelector((state) => state.gameOver)
+    const guesses = useSelector((state) => state.guesses)
+    const dispatch = useDispatch()
 
     const populationStyle = {display: "none"}
     const locationStyle = {display: "none"}
     const areaStyle = {display: "none"}
     const capitalStyle = {display: "none"}
     const flagStyle = {display: "none"}
-    
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        if(guess.toLowerCase() === correctAnswer) {
-            setGameOver(true)
-        } else {
-            setGuesses(guesses + 1)
-            setGuess("")
-        }
-    }
 
     const handleRestart = () => {
         window.location.reload(false)
-    }
-
-    const handleChange = (event) => {
-        event.preventDefault()
-        if(!gameOver) {
-            setGuess(event.target.value)
-            setMatchingCountries(countries
-                .filter(country => country.toLowerCase()
-                    .includes(event.target.value.toLowerCase())))
-        }
-    }
-
-    const handleSelect = (event) => {
-        const country = event.target.innerText
-        setGuess(country)
-        setMatchingCountries(countries
-            .filter(c => c.toLowerCase()
-                .includes(country.toLowerCase())))
-    }
-
-    const InputForm = () => {
-        if(guess !== "" && guess !== matchingCountries[0]) {
-            return (
-                <form onSubmit={handleSubmit}>
-                    <input autoFocus onChange={handleChange} 
-                        value={guess}>
-                    </input>
-                    <div className="suggestions">
-                        {matchingCountries.map(country => 
-                            <p key={country} id="suggestion" 
-                                onClick={handleSelect}>
-                                    {country}
-                            </p>)}
-                    </div>
-                </form>
-            )
-        }
-        return (
-            <form onSubmit={handleSubmit}>
-                <input autoFocus onChange={handleChange} value={guess}></input>
-            </form>
-        )
     }
 
     const GameOverInfo = () => {
@@ -88,7 +35,7 @@ const Game = ({country, countries}) => {
                     <InfoBox infoType={"flag"} 
                         info={country.flags.png}/>
                 </div>
-                <InputForm />
+                <InputForm countries={countries} country={country}/>
             </div>
         )
     }
@@ -125,7 +72,7 @@ const Game = ({country, countries}) => {
                 flagStyle.display = "block"
                 break;
             default:
-                setGameOver(true)
+                dispatch(setGameOver())
                 populationStyle.display = "block";
                 locationStyle.display = "block";
                 areaStyle.display = "block";
@@ -156,7 +103,6 @@ const Game = ({country, countries}) => {
     }
     return (
         <div className="game">
-            
             <div className="clues">
                 <InfoBox infoType={"Population"} 
                     info={country.population} style={populationStyle}/>
@@ -169,7 +115,7 @@ const Game = ({country, countries}) => {
                 <InfoBox infoType={"flag"} 
                     info={country.flags.png} style={flagStyle}/>
             </div>
-            <InputForm />
+            <InputForm countries={countries} country={country} />
         </div>
     )
 }
