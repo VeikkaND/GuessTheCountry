@@ -3,7 +3,6 @@ import InputForm from "./InputForm"
 import { useSelector } from "react-redux"
 
 const Game = ({country, countries}) => {
-    console.log(country.name.common)
     const gameOver = useSelector((state) => state.gameOver)
     const guesses = useSelector((state) => state.guesses)
 
